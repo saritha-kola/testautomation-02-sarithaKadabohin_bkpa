@@ -12,6 +12,13 @@ import * as reservationsPage from '../pages/reservationsPage'
 import * as newReservationPage from '../pages/newReservationPage'
 import * as deleteRoomPage from '../pages/deleteRoomPage'
 
+var faker = require('faker');
+
+let randomName = faker.name.findName();
+let randomMail = faker.internet.email();
+let randomPhone = faker.phone.phoneNumber();
+let randomPrice = faker.commerce.price();
+
 
 describe(' page-objects', () => {
     beforeEach (() => {
@@ -28,8 +35,8 @@ describe(' page-objects', () => {
     it.only("create client and verify",() => {
      dashboardPage.viewclients("Clients")
      clientsPage.viewClientNew("New Client")
-     newclientPage.createClient("apple", "apple@gmail.com", "0701234567", "Clients")
-     clientsPage.verifyLastClient("apple", "apple@gmail.com", "0701234567")
+     newclientPage.createClient(randomName, randomMail, randomPhone, "Clients")
+     clientsPage.verifyLastClient(randomName, randomMail, randomPhone,)
     
      dashboardPage.logoutUser("Login")
     })
@@ -37,20 +44,20 @@ describe(' page-objects', () => {
     it.only("View Room ", () => {
         dashboardPage.viewRoom("Room")
         roomPage.viewRoom("New Room")
-        newRoomPage.createRoom("double", "101", "1", "checked", "1500kr", "balcony", "Rooms")
+        newRoomPage.createRoom("double", "101", "1", "checked", randomPrice, "balcony", "Rooms")
         dashboardPage.logoutUser("Login")
     })  
     it.only("view bills page", () => {
         dashboardPage.viewBills("Bill")
         billsPage.viewBills("New Bill")
-        newBillPage.createBill("3500kr", "checked", "Bills")
+        newBillPage.createBill(randomPrice, "checked", "Bills")
         dashboardPage.logoutUser("Login")
         
     })   
     it.only("view Reservations page ", () => {
-        dashboardPage.viewReservations("Reservation")
+        dashboardPage.viewReservations("Reservations")
         reservationsPage.viewReservations("New Reservation")
-        newReservationPage.createReservation("2020-04-19", "2020-04-22", "apple (#3)", "Floor 1, Room 102", "1", "Reservations")
+        newReservationPage.createReservation("2020-04-01", "2020-04-04", "Jonas Hellman (#1)", "Floor 1, Room 102", "1", "Reservations")
         dashboardPage.logoutUser("Login")
         
     })
